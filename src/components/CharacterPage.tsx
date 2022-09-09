@@ -1,22 +1,20 @@
-import { useFetch } from '../hooks/useFetch';
 import { useParams } from 'react-router-dom';
 import { Container, Box, Typography } from '@mui/material';
 import CircleIcon from '@mui/icons-material/Circle';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { useCharacter } from '../hooks/useCharacter';
 
 const CharacterPage = () => {
-  const id = useParams().id;
-  const character = useFetch(`https://rickandmortyapi.com/api/character/${id}`);
-  const dataCharacter = character ? character : {};
-  const characterOrigin = dataCharacter.origin ? dataCharacter.origin.name : '';
-  const characterLocation = dataCharacter.location
-    ? dataCharacter.location.name
-    : '';
-  const iconColor =
-    dataCharacter.status === 'Alive'
+  const id = Number(useParams().id);
+  const character = useCharacter(`/character/${id}`);
+  console.log('character', character);
+
+  const origin = character.origin.name;
+  const location = character.location.name;
+  const iconColor: string =
+    character.status === 'Alive'
       ? 'green'
-      : dataCharacter.status === 'Dead'
+      : character.status === 'Dead'
       ? 'red'
       : 'gray';
 
@@ -37,15 +35,15 @@ const CharacterPage = () => {
           }}
         >
           <img
-            src={dataCharacter.image}
-            alt='{dataCharacter.name}'
+            src={character.image}
+            alt={character.name}
             className='img-data-character'
           />
           <Typography
             variant='h4'
             sx={{ fontFamily: 'Segoe UI', fontWeight: 'bold' }}
           >
-            {dataCharacter.name}
+            {character.name}
           </Typography>
           <Typography
             variant='body1'
@@ -54,14 +52,12 @@ const CharacterPage = () => {
             <CircleIcon
               sx={{ color: `${iconColor}`, fontSize: 10 }}
             ></CircleIcon>{' '}
-            {dataCharacter.status} - {dataCharacter.species} <br />
-            {dataCharacter.gender} <br />
+            {character.status} - {character.species} <br />
+            {character.gender} <br />
             {'origin'}
-            <ArrowForwardIosIcon sx={{ fontSize: 12 }} /> {characterOrigin}{' '}
-            <br />
+            <ArrowForwardIosIcon sx={{ fontSize: 12 }} /> {origin} <br />
             {'location '}
-            <ArrowForwardIosIcon sx={{ fontSize: 12 }} /> {characterLocation}{' '}
-            <br />
+            <ArrowForwardIosIcon sx={{ fontSize: 12 }} /> {location} <br />
           </Typography>
         </Box>
       </Container>

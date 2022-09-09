@@ -1,8 +1,13 @@
 import { Box } from '@mui/material';
 import CircleIcon from '@mui/icons-material/Circle';
 import { Link } from 'react-router-dom';
+import { Character } from '../interfaces/reqRes';
 
-const CharacterCard = ({ character }) => {
+type Props = {
+  character: Character;
+};
+
+const CharacterCard = ({ character }: Props) => {
   const iconColor =
     character.status === 'Alive'
       ? 'green'

@@ -21,7 +21,10 @@ const Characters = () => {
         {charactersAux.map((character) => {
           return (
             <Grid item xs={12} sm={12}>
-              <CharacterCard key={character.id} character={character} />
+              <CharacterCard
+                key={character.id.toString()}
+                character={character}
+              />
             </Grid>
           );
         })}
