@@ -7,7 +7,6 @@ import { useCharacter } from '../hooks/useCharacter';
 const CharacterPage = () => {
   const id = Number(useParams().id);
   const character = useCharacter(`/character/${id}`);
-  console.log('character', character);
 
   const origin = character.origin.name;
   const location = character.location.name;

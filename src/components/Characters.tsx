@@ -1,9 +1,17 @@
 import { Box, Grid } from '@mui/material';
 import CharacterCard from './CharacterCard';
+// import { useAllCharacters } from '../hooks/useAllCharacters';
 import { useFetch } from '../hooks/useFetch';
+import { ReqResCharacters } from '../interfaces/reqRes';
 
 const Characters = () => {
-  const charactersAux = useFetch(`/character`);
+  // const charactersAux = useAllCharacters(`/character`);
+  const charactersAux = useFetch<ReqResCharacters | null>(`/character`, null);
+
+  if (charactersAux === null) {
+    return <div>Vacio</div>;
+  }
+
   return (
     <Box
       sx={{
@@ -18,13 +26,10 @@ const Characters = () => {
       }}
     >
       <Grid container spacing={2}>
-        {charactersAux.map((character) => {
+        {charactersAux.results.map((character) => {
           return (
-            <Grid item xs={12} sm={12}>
-              <CharacterCard
-                key={character.id.toString()}
-                character={character}
-              />
+            <Grid item xs={12} sm={12} key={character.id.toString()}>
+              <CharacterCard character={character} />
             </Grid>
           );
         })}

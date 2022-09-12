@@ -1,17 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { reqResApi } from '../api/reqRes';
 import { useEffect, useState } from 'react';
-import { ReqResCharacters, Character } from '../interfaces/reqRes';
 
-export const useFetch = (baseUrl: string) => {
-  const [data, setData] = useState<Character[]>([]);
+export const useFetch = <T>(baseUrl: string, initialValue: T) => {
+  const [data, setData] = useState<T>(initialValue);
 
   useEffect(() => {
     getData();
   }, []);
 
   const getData = async () => {
-    const res = await reqResApi.get<ReqResCharacters>(baseUrl);
-    setData(res.data.results);
+    const res = await reqResApi.get<T>(baseUrl);
+    setData(res.data);
   };
 
   return data;
