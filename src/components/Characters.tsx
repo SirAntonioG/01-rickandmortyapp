@@ -5,12 +5,17 @@ import { useFetch } from '../hooks/useFetch';
 import { ReqResCharacters } from '../interfaces/reqRes';
 
 const Characters = () => {
-  // const charactersAux = useAllCharacters(`/character`);
-  const charactersAux = useFetch<ReqResCharacters | null>(`/character`, null);
+  const {
+    data: charactersAux,
+    loading,
+    error,
+  } = useFetch<ReqResCharacters | null>(`/character`, null);
 
-  if (charactersAux === null) {
-    return <div>Vacio</div>;
-  }
+  if (charactersAux === null) return <h2>Characters not found</h2>;
+
+  if (loading) return <h2>Loading...</h2>;
+
+  if (error) console.log('ERROR:', error);
 
   return (
     <Box

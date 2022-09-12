@@ -2,11 +2,24 @@ import { useParams } from 'react-router-dom';
 import { Container, Box, Typography } from '@mui/material';
 import CircleIcon from '@mui/icons-material/Circle';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { useCharacter } from '../hooks/useCharacter';
+// import { useCharacter } from '../hooks/useCharacter';
+import { Character } from '../interfaces/reqRes';
+import { useFetch } from '../hooks/useFetch';
 
 const CharacterPage = () => {
   const id = Number(useParams().id);
-  const character = useCharacter(`/character/${id}`);
+  // const character = useCharacter(`/character/${id}`);
+  const {
+    data: character,
+    loading,
+    error,
+  } = useFetch<Character | null>(`/character/${id}`, null);
+
+  if (character === null) return <h2>Character not found</h2>;
+
+  if (loading) return <h2>Loading...</h2>;
+
+  if (error) console.log('ERROR:', error);
 
   const origin = character.origin.name;
   const location = character.location.name;
