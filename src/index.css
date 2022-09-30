@@ -18,8 +18,8 @@ body {
 }
 
 .img-card {
-  max-width: 45%;
-  height: auto;
+  max-width: auto;
+  height: 100%;
   border-radius: 15px 0px 0px 15px;
 }
 

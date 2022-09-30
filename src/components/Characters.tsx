@@ -1,21 +1,24 @@
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Container } from '@mui/material';
 import CharacterCard from './CharacterCard';
-// import { useAllCharacters } from '../hooks/useAllCharacters';
 import { useFetch } from '../hooks/useFetch';
 import { ReqResCharacters } from '../interfaces/reqRes';
 
 const Characters = () => {
   const {
-    data: charactersAux,
+    data: characters,
     loading,
     error,
   } = useFetch<ReqResCharacters | null>(`/character`, null);
 
-  if (charactersAux === null) return <h2>Characters not found</h2>;
+  console.log('characters', characters, 'loading', loading);
 
   if (loading) return <h2>Loading...</h2>;
 
-  if (error) console.log('ERROR:', error);
+  if (error) return <h3>{error}</h3>;
+
+  if (!characters) {
+    return <></>;
+  }
 
   return (
     <Box
@@ -30,15 +33,24 @@ const Characters = () => {
         gap: '2em',
       }}
     >
-      <Grid container spacing={2}>
-        {charactersAux.results.map((character) => {
-          return (
-            <Grid item xs={12} sm={12} key={character.id.toString()}>
-              <CharacterCard character={character} />
-            </Grid>
-          );
-        })}
-      </Grid>
+      <Container>
+        <Grid container spacing={4}>
+          {characters.results.map((character) => {
+            return (
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={6}
+                lg={6}
+                key={character.id.toString()}
+              >
+                <CharacterCard character={character} />
+              </Grid>
+            );
+          })}
+        </Grid>
+      </Container>
     </Box>
   );
 };

@@ -4,28 +4,30 @@ import { useEffect, useState } from 'react';
 
 export const useFetch = <T>(baseUrl: string, initialValue: T) => {
   const [data, setData] = useState<T>(initialValue);
-  const [loading, setLoading] = useState<Boolean>(false);
-  const [error, setError] = useState<Object | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>('');
+
+  const getData = async () => {
+    try {
+      setLoading(true);
+      const res = await reqResApi.get<T>(baseUrl);
+      setData(res.data);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else if (typeof error === 'string') {
+        setError(error);
+      } else {
+        setError('Unspected error');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     getData();
   }, []);
-
-  const getData = async () => {
-    setLoading(true);
-    await reqResApi
-      .get<T>(baseUrl)
-      .then((res) => {
-        setData(res.data);
-      })
-      .catch((err: object) => {
-        setError(err);
-        // console.log('err', err, 'type', typeof err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
 
   return { data, loading, error };
 };
