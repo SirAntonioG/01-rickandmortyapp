@@ -18,13 +18,12 @@ const CharacterCard = ({ character }: Props) => {
     <Box
       sx={{
         width: '100%',
-        display: 'flex',
-        justifyContent: 'left',
         gap: '1em',
         alignItems: 'center',
         backgroundColor: '#3c3e44',
         borderRadius: '15px',
       }}
+      className='card-box'
     >
       <img src={character.image} alt={character.name} className='img-card' />
       <Box
@@ -38,7 +37,7 @@ const CharacterCard = ({ character }: Props) => {
           borderRadius: '15px',
           padding: '0.8rem',
         }}
-        className='card-box'
+        className='card-box-text'
       >
         <h4>
           <Link to={`character/${character.id}`}>{character.name}</Link> <br />

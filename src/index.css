@@ -11,9 +11,9 @@ body {
 }
 
 .img-card {
-  width: 45%;
+  width: 100%;
   height: auto;
-  border-radius: 15px 0px 0px 15px;
+  border-radius: 15px;
 }
 
 .img-data-character {
@@ -23,6 +23,11 @@ body {
 }
 
 .card-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+}
+.card-box-text {
   gap: 1rem;
 }
 
@@ -45,10 +50,18 @@ a:hover {
 
 /* MEDIA QUERIES */
 @media only screen and (min-width: 600px) {
+  .img-card {
+    width: 45%;
+    height: auto;
+    border-radius: 15px 0px 0px 15px;
+  }
   .img-data-character {
     width: 70%;
   }
   .card-box {
+    flex-direction: row;
+  }
+  .card-box-text {
     gap: 1.3rem;
   }
 }
