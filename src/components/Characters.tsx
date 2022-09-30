@@ -10,8 +10,6 @@ const Characters = () => {
     error,
   } = useFetch<ReqResCharacters | null>(`/character`, null);
 
-  console.log('characters', characters, 'loading', loading);
-
   if (loading) return <h2>Loading...</h2>;
 
   if (error) return <h3>{error}</h3>;

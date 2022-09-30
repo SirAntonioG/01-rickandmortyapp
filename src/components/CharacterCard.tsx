@@ -29,22 +29,24 @@ const CharacterCard = ({ character }: Props) => {
       <img src={character.image} alt={character.name} className='img-card' />
       <Box
         sx={{
-          width: '45%',
+          maxWidth: '45%',
+          height: 'auto',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'left',
-          gap: '2em',
           backgroundColor: '#3c3e44',
           borderRadius: '15px',
+          padding: '0.8rem',
         }}
+        className='card-box'
       >
-        <p>
+        <h4>
           <Link to={`character/${character.id}`}>{character.name}</Link> <br />
           <CircleIcon
             sx={{ color: `${iconColor}`, fontSize: 10 }}
           ></CircleIcon>{' '}
           {character.status} - {character.species}
-        </p>
+        </h4>
         <p>
           Last know location: <br />
           <a href={character.location.url}>{character.location.name}</a>
